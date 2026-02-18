@@ -21,6 +21,7 @@ authors = [
 dev = [
     "black",
     "pre-commit",
+    "flake8",
 ]
 
 [tool.setuptools.packages.find]
