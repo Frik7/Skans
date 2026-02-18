@@ -19,3 +19,14 @@ authors = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.mypy]
+python_version = "3.8"
+strict = true
+disallow_untyped_defs = true
+mypy_path = "src"
+explicit_package_bases = true
+warn_unused_configs = true
+exclude = [
+    ".venv",
+]
