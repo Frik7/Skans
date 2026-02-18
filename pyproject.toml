@@ -17,6 +17,12 @@ authors = [
     { name = "Frik Strydom" },
 ]
 
+[project.optional-dependencies]
+dev = [
+    "black",
+    "pre-commit",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
@@ -30,3 +36,21 @@ warn_unused_configs = true
 exclude = [
     ".venv",
 ]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
