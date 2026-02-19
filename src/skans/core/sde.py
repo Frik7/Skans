@@ -34,7 +34,7 @@ def geometric_brownian_motion(
     Returns
     -------
     np.ndarray
-        Simulated paths.
+        Simulated paths (n_paths, n_steps + 1)
     """
     dt = T / n_steps
 
@@ -42,4 +42,4 @@ def geometric_brownian_motion(
         (mu - 0.5 * sigma**2) * dt + sigma * rng.generate(n_paths, n_steps) * dt**0.5
     )
 
-    return np.hstack((S0, paths))
+    return np.hstack((np.full((n_paths, 1), S0), paths))
