@@ -9,7 +9,7 @@ def geometric_brownian_motion(
     T: float,
     n_steps: int,
     n_paths: int,
-    rng: RandomNumberGenerator | None = SimpleRng,
+    rng: RandomNumberGenerator | None = None,
 ) -> np.ndarray:
     """
     Geometric Brownian Motion Simulator.
@@ -38,8 +38,24 @@ def geometric_brownian_motion(
     """
     dt = T / n_steps
 
-    paths = S0 * np.exp(
-        (mu - 0.5 * sigma**2) * dt + sigma * rng.generate(n_paths, n_steps) * dt**0.5
-    )
+    if rng is None:
+        rng = SimpleRng()
 
-    return np.hstack((np.full((n_paths, 1), S0), paths))
+    # Generate random normal variables
+    Z = rng.generate(n_paths, n_steps)
+
+    # Geometric Brownian Motion formula
+    # S(t) = S0 * exp((mu - 0.5 * sigma^2) * t + sigma * W(t))
+
+    # Calculate the exponent
+    exponent = (mu - 0.5 * sigma**2) * dt + sigma * Z * np.sqrt(dt)
+
+    # Accumulate the exponent
+    accumulated_exponent = np.cumsum(exponent, axis=1)
+
+    # Prepend zero to the accumulated exponent to account for S0 at t=0
+    accumulated_exponent = np.hstack((np.zeros((n_paths, 1)), accumulated_exponent))
+
+    paths = S0 * np.exp(accumulated_exponent)
+
+    return paths
