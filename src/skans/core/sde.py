@@ -1,3 +1,4 @@
+from typing import cast
 from skans.core.rng import RandomNumberGenerator, SimpleRng
 import numpy as np
 
@@ -58,4 +59,4 @@ def geometric_brownian_motion(
 
     paths = S0 * np.exp(accumulated_exponent)
 
-    return paths
+    return cast(np.ndarray, paths)
