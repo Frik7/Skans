@@ -102,7 +102,9 @@ def test_resolve_unsupported_instrument() -> None:
     class UnsupportedInstrument:
         pass
 
-    pos = Position(position_id="FAIL", instrument=UnsupportedInstrument())
+    pos = Position(
+        position_id="FAIL", instrument=UnsupportedInstrument()  # type: ignore
+    )
 
     with pytest.raises(TypeError, match="Unsupported instrument type in resolver"):
         resolver.resolve([pos])
