@@ -1,3 +1,3 @@
-from .portfolio import Position, Trade, Portfolio
+from .portfolio import Position, Trade, Portfolio, NettingSet
 
-__all__ = ["Position", "Trade", "Portfolio"]
+__all__ = ["Position", "Trade", "Portfolio", "NettingSet"]

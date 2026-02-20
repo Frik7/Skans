@@ -46,3 +46,15 @@ class Portfolio:
 
     def __len__(self) -> int:
         return len(self.trades)
+
+
+@dataclass(frozen=True, slots=True)
+class NettingSet:
+    """
+    A legal boundary for offsetting exposures.
+    The Exposure Engine aggregates values at this level.
+    """
+
+    netting_set_id: str
+    counterparty_id: str
+    trade_ids: frozenset[str]
