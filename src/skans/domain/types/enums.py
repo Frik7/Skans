@@ -23,3 +23,11 @@ class OptionType(str, Enum):
 
     CALL = "CALL"
     PUT = "PUT"
+
+
+@unique
+class LongShort(str, Enum):
+    """Direction of the trade exposure."""
+
+    LONG = "LONG"
+    SHORT = "SHORT"
