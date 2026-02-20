@@ -3,7 +3,7 @@ import numpy as np
 from skans.market.environment import RiskFactorSchema, MarketEnvironment
 
 
-def test_risk_factor_schema_get_index_success():
+def test_risk_factor_schema_get_index_success() -> None:
     """Test successful index retrieval from RiskFactorSchema."""
     indices = {"SPX": 0, "NDX": 1, "RUT": 2}
     schema = RiskFactorSchema(factor_indices=indices)
@@ -13,7 +13,7 @@ def test_risk_factor_schema_get_index_success():
     assert schema.get_index("RUT") == 2
 
 
-def test_risk_factor_schema_get_index_failure():
+def test_risk_factor_schema_get_index_failure() -> None:
     """Test KeyError with descriptive message when factor is missing."""
     indices = {"SPX": 0}
     schema = RiskFactorSchema(factor_indices=indices)
@@ -27,7 +27,7 @@ def test_risk_factor_schema_get_index_failure():
     assert "Available factors: ['SPX']" in str(excinfo.value)
 
 
-def test_market_environment_initialization():
+def test_market_environment_initialization() -> None:
     """Test successful initialization of MarketEnvironment."""
     indices = {"Factor1": 0}
     schema = RiskFactorSchema(factor_indices=indices)
@@ -42,7 +42,7 @@ def test_market_environment_initialization():
     assert env.dt == dt
 
 
-def test_market_environment_read_only_tensor():
+def test_market_environment_read_only_tensor() -> None:
     """Test that state_tensor is made read-only in __post_init__."""
     indices = {"Factor1": 0}
     schema = RiskFactorSchema(factor_indices=indices)

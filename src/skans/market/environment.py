@@ -48,7 +48,7 @@ class MarketEnvironment:
     state_tensor: np.ndarray
     dt: float
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """
         Defensive programming: Lock the tensor to prevent accidental in-place
         mutation by the Valuation Engine.
