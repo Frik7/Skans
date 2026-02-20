@@ -1,6 +1,6 @@
 from datetime import date
 import pytest
-from skans.domain.portfolio import Position, Trade, Portfolio
+from skans.domain.portfolio import Position, Trade, Portfolio, NettingSet
 from skans.domain.instruments.equity.forward import EquityForward
 from skans.domain.types.enums import Currency, LongShort
 
@@ -91,3 +91,27 @@ def test_portfolio_trade_index_caching(sample_portfolio: Portfolio) -> None:
     index1 = sample_portfolio._trade_index
     index2 = sample_portfolio._trade_index
     assert index1 is index2
+
+
+def test_nettingset_instantiation() -> None:
+    """Test that NettingSet can be instantiated with valid data."""
+    trade_ids = frozenset(["T1", "T2"])
+    ns = NettingSet(
+        netting_set_id="NS001",
+        counterparty_id="CPTY001",
+        trade_ids=trade_ids,
+    )
+    assert ns.netting_set_id == "NS001"
+    assert ns.counterparty_id == "CPTY001"
+    assert ns.trade_ids == trade_ids
+
+
+def test_nettingset_immutability() -> None:
+    """Test that NettingSet is frozen and cannot be modified."""
+    ns = NettingSet(
+        netting_set_id="NS001",
+        counterparty_id="CPTY001",
+        trade_ids=frozenset(["T1"]),
+    )
+    with pytest.raises(AttributeError):
+        ns.netting_set_id = "NS002"  # type: ignore[misc]
